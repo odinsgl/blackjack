@@ -1,21 +1,22 @@
 package BlackjackProject;
 
+import java.util.Scanner;
+
 public class BlackjackGame {
-	private int player, dealer;
 	
-	public BlackjackGame() {
-		player1
-	}
-	
-	public int checkCardValue(String card) {
-		String card = drawRandom();
-		if(substring.card)
-	}
+//	public boolean hideCard() {
+//		
+//	}
 	
 	
 	
 	public static void main(String[] args) {
-		BlackjackGame game = new BlackjackGame();
+		Scanner sc = new Scanner(System.in);
+		BlackjackDeck leDeck = new BlackjackDeck();
+		
+		BlackjackPlayer player1 = new BlackjackPlayer();
+		BlackjackPlayer dealer = new BlackjackPlayer();
+		
 		
 	}
 }

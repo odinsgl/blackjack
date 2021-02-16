@@ -2,7 +2,6 @@ package BlackjackProject;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class BlackjackDeck {
 	private ArrayList<BlackjackCard> threeDeck = new ArrayList<BlackjackCard>();
@@ -10,29 +9,37 @@ public class BlackjackDeck {
 	private Random rd = new Random();
 	
 	public BlackjackDeck() {
-		for (int i = 0; i < 166; i++) {
-			threeDeck.add(new BlackjackCard(suits[rd.nextInt(suits.length)], ThreadLocalRandom.current().nextInt(1, 14)));
+		for (int i = 0; i < suits.length; i++) {
+			for (int j = 1; j <= 13; j++) {
+				threeDeck.add(new BlackjackCard(suits[i], j)); 
+				threeDeck.add(new BlackjackCard(suits[i], j));
+				threeDeck.add(new BlackjackCard(suits[i], j));
+			}
 		}
 	}
 	
-	public int getCardCount(){
+	public int getCardCount() {
 		return threeDeck.size();
 	}
 	
-	public BlackjackCard getCard(int n){
-		return threeDeck.get(n);
+	public BlackjackCard dealCard() {
+		BlackjackCard drawnCard = threeDeck.get(rd.nextInt(threeDeck.size()));
+		threeDeck.remove(drawnCard);
+		if(threeDeck.size() < 104) {
+			for (int i = 0; i < suits.length; i++) {
+				for (int j = 1; j <= 13; j++) {
+					threeDeck.add(new BlackjackCard(suits[i], j));
+				}
+			}
+		}
+		System.out.println(drawnCard);
+		return drawnCard;
 	}
 	
-	public BlackjackCard drawRandom() {
-		return threeDeck.get(rd.nextInt(threeDeck.size()));
-	}
 	public static void main(String[] args) {
 		BlackjackDeck cardDeck = new BlackjackDeck();
-		System.out.println(cardDeck.drawRandom());
+		System.out.println(cardDeck.threeDeck.size());
+		System.out.println(cardDeck.dealCard());
+		System.out.println(cardDeck.threeDeck.size());
 	}
-	
-//	public static void main(String[] args) {				not rly needed?
-//		BlackjackDeck cardDeck = new BlackjackDeck();
-//		System.out.println("Card amount equal to three decks: " + cardDeck.threeDeck);
-//	}
 }
