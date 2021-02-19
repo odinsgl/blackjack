@@ -1,19 +1,21 @@
 package BlackjackProject;
 
 public class BlackjackPlayer {
-	private int handSum, cardsInHand;
-	private BlackjackCard[] hand = new BlackjackCard[8];
+	private int amountOfCards;
+	private BlackjackCard[] hand = new BlackjackCard[15];
+	private String name;
 	
 	
-	public BlackjackPlayer() {
+	public BlackjackPlayer(String name) {
+		this.name = name;
 		emptyHand();
 	}
 	
 	private void emptyHand() {
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 15; i++) {
 			hand[i] = null;
 		}
-		cardsInHand = 0;
+		amountOfCards = 0;
 	}
 
 	public boolean isHandEmpty() {
@@ -23,42 +25,54 @@ public class BlackjackPlayer {
 		return false;
 	}
 	
-//	public int checkCardValue(BlackjackCard card) {
-//		
-//	}
+	public boolean addCard(BlackjackCard card) {
+		hand[amountOfCards] = card;
+		amountOfCards++;
+		
+		return (sumHand() <= 21);
+	}
 	
 	public int sumHand() {
-		BlackjackDeck dealt = new BlackjackDeck();
-		BlackjackCard drawn = dealt.dealCard();
-		String string = drawn.toString();
-		String str = string.replaceAll("[A-Z]", "");
-		int aces = 0;										//amount of aces
 		
-		int value = Integer.parseInt(str.trim());
+		int handSum = 0;
+		int numberOfAces = 0;
+		int cardValue;
 		
-		if(value == 1) {
-			aces++;
-			handSum += 11;
-		} else if(value > 10) {
-			handSum += 10;
-		} else {
-			handSum += value;
+		for (int i = 0; i < amountOfCards; i++) {
+			cardValue = hand[i].getFace();
+			
+			if(cardValue == 1) {
+				numberOfAces++;
+				handSum += 11;
+			} else if(cardValue > 10) {
+				handSum += 10;
+			} else {
+				handSum += cardValue;
+			}
 		}
 		
-		while(handSum > 21 && aces > 0) {
+		while(handSum > 21 && numberOfAces > 0) {
 			handSum -= 10;
-			aces--;	
+			numberOfAces--;	
 		}
 		
 		return handSum;
 	}
 	
+	public void hideDealerCard(boolean hideFirst) {
+		
+		for (int i = 0; i < amountOfCards; i++) {
+			if (i == 0 && hideFirst == true) {	/// endres ift. brukergrensesnitt ?
+				System.out.println("Hidden");  
+			} else {
+				System.out.println(hand[i].toString());
+			}
+		}
+	}
 	
-	public static void main(String[] args) {
-		BlackjackPlayer player1 = new BlackjackPlayer();
-		System.out.println(player1.sumHand());
+	public String getName() {
+		return name;
 	}
 }
 	
-	
-
+// skrive session games til fil? Reset session når appen åpnes?

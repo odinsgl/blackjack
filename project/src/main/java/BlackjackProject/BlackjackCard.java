@@ -4,13 +4,9 @@ public class BlackjackCard {
 	private char suit;
 	private int face;
 	
-	public BlackjackCard(char suit, int face) {
-		if ((suit == 'S' || suit == 'H' || suit == 'D' || suit == 'C') && (face <= 13 && face >= 1))  {
-			this.suit = suit;
-			this.face = face;
-		} else {
-			throw new IllegalArgumentException();
-		}
+	public BlackjackCard(char suit, int face) { // lager objektet BlackjackCard
+		this.suit = suit;
+		this.face = face;
 	}
 	
 	public char getSuit() {
@@ -21,7 +17,7 @@ public class BlackjackCard {
 		return face;
 	}
 	
-	
+	@Override
 	public String toString() {
 		return "" + suit + face;
 	}
