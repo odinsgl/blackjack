@@ -1,38 +1,33 @@
 package BlackjackProject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class BlackjackDeck {
-	private ArrayList<BlackjackCard> threeDeck = new ArrayList<BlackjackCard>();
+	private List<BlackjackCard> BJdeck = new ArrayList<BlackjackCard>(); //lager List som er av typen ArrayList som inneholder objekter av typen BlackjackCard.
 	private char[] suits = {'S','H','D','C'};
 	private Random rd = new Random();
 	
 	public BlackjackDeck() {
-		for (int i = 0; i < 166; i++) {
-			threeDeck.add(new BlackjackCard(suits[rd.nextInt(suits.length)], ThreadLocalRandom.current().nextInt(1, 14)));
+		for (int i = 0; i < suits.length; i++) { 
+			for (int j = 1; j <= 13; j++) {
+				BJdeck.add(new BlackjackCard(suits[i], j)); // for hver suit, lag 13 kort med den suit'en og legg til i "threeDeck".
+			}
 		}
 	}
 	
-	public int getCardCount(){
-		return threeDeck.size();
+	public List<BlackjackCard> getThreeDeck() {
+		return BJdeck;
 	}
 	
-	public BlackjackCard getCard(int n){
-		return threeDeck.get(n);
+	public int getCardCount() {
+		return BJdeck.size();
 	}
 	
-	public BlackjackCard drawRandom() {
-		return threeDeck.get(rd.nextInt(threeDeck.size()));
+	public BlackjackCard dealCard() {
+		BlackjackCard drawnCard = BJdeck.get(rd.nextInt(BJdeck.size()));	//add a random card from threeDeck to a varible
+		BJdeck.remove(drawnCard);											//remove it from 
+		return drawnCard;
 	}
-	public static void main(String[] args) {
-		BlackjackDeck cardDeck = new BlackjackDeck();
-		System.out.println(cardDeck.drawRandom());
-	}
-	
-//	public static void main(String[] args) {				not rly needed?
-//		BlackjackDeck cardDeck = new BlackjackDeck();
-//		System.out.println("Card amount equal to three decks: " + cardDeck.threeDeck);
-//	}
 }
