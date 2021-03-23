@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="695.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/15.0.1" fx:controller="BlackjackProject.AppController">
+   <children>
+      <Label layoutX="100.0" layoutY="25.0" text="Dealer" />
+      <Label layoutX="104.0" layoutY="348.0" prefHeight="17.0" prefWidth="35.0" text="Player" />
+      <Button fx:id="deal" layoutX="581.0" layoutY="344.0" mnemonicParsing="false" onAction="#onDeal" text="Deal" />
+      <Button fx:id="stand" layoutX="245.0" layoutY="344.0" mnemonicParsing="false" onAction="#onStand" text="Stand" />
+      <Button fx:id="hit" layoutX="322.0" layoutY="344.0" mnemonicParsing="false" onAction="#onHit" text="Hit" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" blendMode="MULTIPLY" fill="#22b235" height="404.0" stroke="BLACK" strokeType="INSIDE" width="695.0" />
+   </children>
+</AnchorPane>

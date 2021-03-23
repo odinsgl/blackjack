@@ -8,12 +8,12 @@ public class BlackjackPlayer {
 	
 	public BlackjackPlayer(String name) {
 		this.name = name;
-		emptyHand();
+		emptyHand();							//hver gang et spiller-objekt opprettes, tøm hånda.
 	}
 	
 	private void emptyHand() {
-		for (int i = 0; i < 15; i++) {
-			hand[i] = null;
+		for (int i = 0; i < 15; i++) {			//for hver index av hånda opp til max størrelse på hånda
+			hand[i] = null;						//sett den indexen av hånda til ingenting
 		}
 		amountOfCards = 0;
 	}
