@@ -13,11 +13,13 @@ public class BlackjackDeck {
 		for (int i = 0; i < suits.length; i++) { 
 			for (int j = 1; j <= 13; j++) {
 				BJdeck.add(new BlackjackCard(suits[i], j)); // for hver suit, lag 13 kort med den suit'en og legg til i "threeDeck".
+				BJdeck.add(new BlackjackCard(suits[i], j));
+				BJdeck.add(new BlackjackCard(suits[i], j));
 			}
 		}
 	}
 	
-	public List<BlackjackCard> getThreeDeck() {
+	public List<BlackjackCard> getBJdeck() {
 		return BJdeck;
 	}
 	
