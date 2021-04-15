@@ -9,7 +9,7 @@ public class App extends Application {
 	
 	@Override
 	public void start(final Stage primaryStage) throws Exception {
-		primaryStage.setTitle("BlackJackApp");
+		primaryStage.setTitle("BlackJack App");
 		primaryStage.setScene(new Scene(FXMLLoader.load(App.class.getResource("ui.fxml"))));
 		primaryStage.show();
 	}

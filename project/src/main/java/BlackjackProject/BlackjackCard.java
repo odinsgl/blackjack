@@ -19,6 +19,6 @@ public class BlackjackCard {
 	
 	@Override
 	public String toString() {
-		return "" + suit + face;
+		return "" + face + suit;
 	}
 }
