@@ -3,17 +3,6 @@ package BlackjackProject;
 public class BlackjackPlayer {
 	private int amountOfCards;
 	private BlackjackCard[] hand = new BlackjackCard[8];
-	private String username;
-	
-	
-	public BlackjackPlayer(String username) {
-		if(username.matches("[a-zA-Z0-9]+")) {
-			this.username = username;
-		} else {
-			throw new IllegalArgumentException("Invalid symbols in username.");
-		}
-		
-	}
 	
 	public void addCard(BlackjackCard card) {
 		this.hand[amountOfCards] = card;
@@ -105,9 +94,12 @@ public int sumHandWOFirst() {
 		
 		return handSum;
 	}
-	
-	public String getUsername() {
-		return username;
+
+	public boolean hasBlackjack() {
+		if (sumHand() == 21 && getSize() == 2) {
+			return true;
+		}
+		return false;
 	}
 	
 	public int getSize() {

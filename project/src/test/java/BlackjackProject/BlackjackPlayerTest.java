@@ -92,4 +92,20 @@ class BlackjackPlayerTest {
 		assertEquals(card4, player.getCard(3));
 	}
 	
+	@Test
+	@DisplayName("Sjekker om man faktisk har blackjack")
+	void testHasBlackjack() {
+		player.addCard(card2);
+		player.addCard(card3);
+		player.addCard(card1);
+		
+		assertFalse(player.hasBlackjack());
+		
+		player1 = new BlackjackPlayer("Dealer");
+		player1.addCard(card1);
+		player1.addCard(card2);
+		
+		assertTrue(player1.hasBlackjack());
+	}
+
 }

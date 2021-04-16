@@ -8,22 +8,23 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="695.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BlackjackProject.AppController">
+<AnchorPane prefHeight="498.0" prefWidth="950.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BlackjackProject.AppController">
    <children>
-      <VBox prefHeight="400.0" prefWidth="775.0">
+      <VBox prefHeight="498.0" prefWidth="950.0">
          <children>
-            <Pane prefHeight="400.0" prefWidth="775.0">
+            <Pane prefHeight="503.0" prefWidth="950.0">
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" blendMode="MULTIPLY" fill="#22b235" height="404.0" stroke="BLACK" strokeType="INSIDE" width="775.0" />
-                  <Label layoutX="24.0" layoutY="24.0" text="Dealer" />
-                  <Label layoutX="24.0" layoutY="330.0" prefHeight="17.0" prefWidth="35.0" text="Player" />
-                  <Button fx:id="deal" layoutX="576.0" layoutY="361.0" mnemonicParsing="false" onAction="#onDeal" text="Deal" />
-                  <Button fx:id="stand" layoutX="247.0" layoutY="361.0" mnemonicParsing="false" onAction="#onStand" text="Stand" />
-                  <Button fx:id="hit" layoutX="321.0" layoutY="361.0" mnemonicParsing="false" onAction="#onHit" text="Hit" />
-                  <Label fx:id="playerHandValue" layoutX="300.0" layoutY="339.0" text="Player's Hand Value" />
-                  <Label fx:id="dealerHandValue" layoutX="304.0" layoutY="171.0" text="Dealer's Hand Value" />
-                  <HBox fx:id="dealerHBox" layoutX="85.0" layoutY="24.0" prefHeight="134.0" prefWidth="640.0">
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" blendMode="MULTIPLY" fill="#22b235" height="498.0" stroke="BLACK" strokeType="INSIDE" width="950.0" />
+                  <Label layoutX="21.0" layoutY="111.0" text="Dealer" />
+                  <Label fx:id="playerName" layoutX="21.0" layoutY="417.0" prefHeight="18.0" prefWidth="157.0" text="Player" />
+                  <Button fx:id="deal" layoutX="573.0" layoutY="448.0" mnemonicParsing="false" onAction="#onDeal" text="Deal" />
+                  <Button fx:id="stand" layoutX="244.0" layoutY="448.0" mnemonicParsing="false" onAction="#onStand" text="Stand" />
+                  <Button fx:id="hit" layoutX="318.0" layoutY="448.0" mnemonicParsing="false" onAction="#onHit" text="Hit" />
+                  <Label fx:id="playerHandValue" layoutX="296.0" layoutY="417.0" />
+                  <Label fx:id="dealerHandValue" layoutX="296.0" layoutY="249.0" />
+                  <HBox fx:id="dealerHBox" layoutX="80.0" layoutY="103.0" prefHeight="134.0" prefWidth="640.0">
                      <children>
                         <ImageView fx:id="dealerImgView1" fitHeight="134.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="dealerImgView2" fitHeight="134.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
@@ -35,7 +36,7 @@
                         <ImageView fx:id="dealerImgView8" fitHeight="134.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </HBox>
-                  <HBox fx:id="playerHBox" layoutX="85.0" layoutY="200.0" prefHeight="134.0" prefWidth="640.0">
+                  <HBox fx:id="playerHBox" layoutX="80.0" layoutY="274.0" prefHeight="134.0" prefWidth="640.0">
                      <children>
                         <ImageView fx:id="playerImgView1" fitHeight="134.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
                         <ImageView fx:id="playerImgView2" fitHeight="134.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
@@ -47,6 +48,12 @@
                         <ImageView fx:id="playerImgView8" fitHeight="134.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </HBox>
+                  <Label fx:id="resultLabel" layoutX="404.0" layoutY="417.0" prefHeight="18.0" prefWidth="249.0" />
+                  <Label layoutX="375.0" layoutY="29.0" text="BLACKJACK">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Label>
                </children> 
             </Pane>
          </children>

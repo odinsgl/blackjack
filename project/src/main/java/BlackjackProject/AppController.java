@@ -1,10 +1,10 @@
 package BlackjackProject;
 
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+
 
 public class AppController {
 
@@ -29,6 +30,12 @@ public class AppController {
 	
 	@FXML
 	private Label dealerHandValue;
+	
+	@FXML
+	private Label resultLabel;
+	
+	@FXML
+	private Label playerName;
 	
 	@FXML
 	private List<ImageView> dlImgViewList = new ArrayList<ImageView>();
@@ -62,6 +69,7 @@ public class AppController {
 	
 	public void initialize() {
 		
+		
 		dlImgViewList.addAll(Arrays.asList(dealerImgView1, dealerImgView2, dealerImgView3, dealerImgView4,
 				dealerImgView5, dealerImgView6, dealerImgView7, dealerImgView8));
 		
@@ -71,10 +79,18 @@ public class AppController {
 		hit.setDisable(true);
 		stand.setDisable(true);
 		
+		
 	}
+	
+//	public void myFtn(String text) {
+//		playerName.setText(text);
+//	}
 	
 	@FXML
 	public void onDeal() {
+		
+		resultLabel.setText(null);
+		
 		plImgViewListIndex = 2;
 		dlImgViewListIndex = 2;
 
@@ -92,8 +108,8 @@ public class AppController {
 		
 		BJdeck = new BlackjackDeck();
 		
-		player1 = new BlackjackPlayer("Dealer");
-		dealer = new BlackjackPlayer("Player");
+		player1 = new BlackjackPlayer();
+		dealer = new BlackjackPlayer();
 		
 		player1.addCard(BJdeck.dealCard());
 		dealer.addCard(BJdeck.dealCard());
@@ -105,8 +121,9 @@ public class AppController {
 		
 		dealerHandValue.setText(String.valueOf(dealer.sumHandWOFirst()));
 		
-		if(dealer.sumHand() == 21 || player1.sumHand() == 21) {
+		if(dealer.hasBlackjack() || player1.hasBlackjack()) {
 			spoilCard();
+			setResultLabel();
 			} else {
 			Image dlImg1 = new Image(new File("C:\\Users\\oglad\\Documents\\BlackjackCards\\purple_back.png").toURI().toString());
 			dealerImgView1.setImage(dlImg1);
@@ -128,7 +145,7 @@ public class AppController {
 	
 	public void anyAces() {
 		
-		if(player1.aceAmount() > 0 && player1.sumHand() < 21 && (player1.sumHandAceAsOne() != player1.sumHand())) {
+		if(player1.aceAmount() > 0 && player1.sumHand() < 21 && player1.sumHandAceAsOne() != player1.sumHand()) {
 			playerHandValue.setText(String.valueOf(player1.sumHand()) + " / " + player1.sumHandAceAsOne());
 		} else {
 			playerHandValue.setText(String.valueOf(player1.sumHand()));
@@ -151,6 +168,25 @@ public class AppController {
 		dealerImgView1.setImage(dlImg1);
 	}
 	
+
+	public void setResultLabel() {
+		if(dealer.hasBlackjack() && !player1.hasBlackjack()) {
+			resultLabel.setText("Dealer has blackjack! You lose.");
+		} else if(player1.hasBlackjack() && !dealer.hasBlackjack()) {
+			resultLabel.setText("You got blackjack! Congratulations!");
+		} else if(player1.hasBlackjack() && dealer.hasBlackjack()) {
+			resultLabel.setText("You both got blackjack! It's a PUSH!");
+		} else if(player1.sumHand() > 21) {
+			resultLabel.setText("You busted :(");
+		} else if(player1.sumHand() <= 21 && (dealer.sumHand() < player1.sumHand() || dealer.sumHand() > 21)) {
+			resultLabel.setText("You win with " + player1.sumHand() + " against " + dealer.sumHand() + "!");
+		} else if(player1.sumHand() <= 21 && (dealer.sumHand() > player1.sumHand() && dealer.sumHand() <= 21)) {
+			resultLabel.setText("You lost with " + player1.sumHand() + " against " + dealer.sumHand() + "!");
+		} else if(player1.sumHand() <= 21 && dealer.sumHand() == player1.sumHand()) {
+			resultLabel.setText("You both have " + player1.sumHand() + " it's a push!");
+		}
+	}
+	
 	@FXML
 	public void onHit() {
 		
@@ -158,6 +194,7 @@ public class AppController {
 		
 		if(player1.sumHand() > 21) {
 			spoilCard();
+			setResultLabel();
 		}	
 		
 		if(player1.sumHand() == 21) {
@@ -165,6 +202,8 @@ public class AppController {
 				dealerFinish();
 			}
 			spoilCard();
+			setResultLabel();
+			
 		}
 		
 		Image plHitImg = new Image(new File("C:\\Users\\oglad\\Documents\\BlackjackCards\\" + player1.getCard(player1.getSize() - 1).toString() + ".png").toURI().toString());
@@ -182,8 +221,11 @@ public class AppController {
 			dealerFinish();
 		}
 		
+		setResultLabel();
+		
 		dealerHandValue.setText(String.valueOf(dealer.sumHand()));
 		playerHandValue.setText(String.valueOf(player1.sumHand()));
 		
 	}
+	
 }
