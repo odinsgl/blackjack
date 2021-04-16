@@ -9,8 +9,9 @@ public class App extends Application {
 	
 	@Override
 	public void start(final Stage primaryStage) throws Exception {
-		primaryStage.setTitle("BlackJack App");
-		primaryStage.setScene(new Scene(FXMLLoader.load(App.class.getResource("ui.fxml"))));
+		primaryStage.setScene(new Scene(FXMLLoader.load(App.class.getResource("username.fxml"))));
+		primaryStage.setTitle("BlackJack App Welcome");
+		primaryStage.setResizable(false);
 		primaryStage.show();
 	}
 	public static void main(String[] args) {

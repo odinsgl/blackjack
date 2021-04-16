@@ -30,5 +30,4 @@ class BlackjackDeckTest {
 		
 		assertEquals(154, deck.getCardCount());
 	}
-
 }
