@@ -1,19 +1,23 @@
 package BlackjackProject;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
-
 public class BlackjackResults implements ResultsInterface {
 	
-	public void writeResultsToFile(String filename) {
+	private File resultHistory;
+	
+	public void writeResultsFile(String text) {
+		
+		resultHistory = new File("result_history.txt");
+		
 		try {
-			PrintWriter writer = new PrintWriter(filename);
-			
+			PrintWriter writer = new PrintWriter(resultHistory);
+			writer.write(text);
+			writer.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
+	}	
 }

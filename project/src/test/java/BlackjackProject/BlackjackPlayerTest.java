@@ -18,7 +18,7 @@ class BlackjackPlayerTest {
 	
 	@BeforeEach
 	void setUp() {
-		player = new BlackjackPlayer("Player");
+		player = new BlackjackPlayer();
 		card1 = new BlackjackCard('S', 1);
 		card2 = new BlackjackCard('H', 13);
 		card3 = new BlackjackCard('D', 10);
@@ -72,7 +72,7 @@ class BlackjackPlayerTest {
 		player.addCard(card4);
 		assertEquals(7, player.sumHandWOFirst());
 		
-		player1 = new BlackjackPlayer("Dealer");
+		player1 = new BlackjackPlayer();
 		player1.addCard(card4);
 		player1.addCard(card1);
 		assertEquals(11, player1.sumHandWOFirst());
@@ -101,7 +101,7 @@ class BlackjackPlayerTest {
 		
 		assertFalse(player.hasBlackjack());
 		
-		player1 = new BlackjackPlayer("Dealer");
+		player1 = new BlackjackPlayer();
 		player1.addCard(card1);
 		player1.addCard(card2);
 		
