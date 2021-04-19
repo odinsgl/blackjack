@@ -1,6 +1,7 @@
 package BlackjackProject;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -69,9 +70,11 @@ public class AppController {
 	
 	private int dlImgViewListIndex;
 	
-	public void initialize() {
+	public void initialize() throws FileNotFoundException {
 		
 		resultHistory = new BlackjackResults();
+		resultHistory.getResultsFromFile("result_history");
+		resultHistory.addDate();
 		
 		dlImgViewList.addAll(Arrays.asList(dealerImgView1, dealerImgView2, dealerImgView3, dealerImgView4,
 				dealerImgView5, dealerImgView6, dealerImgView7, dealerImgView8));
@@ -83,6 +86,8 @@ public class AppController {
 		stand.setDisable(true);
 		
 		
+		
+		//resultHistory.getResultStringList().clear();
 	}
 	
 //	public void myFtn(String text) {

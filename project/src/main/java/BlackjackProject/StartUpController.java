@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 public class StartUpController {
 	
 	@FXML
-	private TextField username;
+	private TextField username; //prøv static?
 
 	@FXML
 	private Button play;
