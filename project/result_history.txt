@@ -1,52 +1,79 @@
 
 
-20.april - 16:18:43
+22.april - 15:02:02
 
+Loss: 20 vs 21
+Win: 20 vs 18
+Win: 19 vs 22
+Loss: 23 vs 20
+
+
+22.april - 15:04:21
+
+Win: 18 vs 23
+Win: 21 vs 25
+Loss: 28 vs 12
+Loss: 25 vs 14
+Push: 20 vs 20
 Loss: 19 vs 20
-Win: 21 vs 22
-Loss: 25 vs 19
+Loss: 23 vs 11
+Win: 19 vs 26
 
 
-20.april - 16:21:05
+22.april - 15:11:19
 
-Win: 20 vs 23
-
-
-22.april - 10:04:23
-
-Win: 20 vs 24
-Loss: 19 vs 20
-Loss: 23 vs 17
+Win: 21 vs 18
+Win: 21 vs 20
+Win: 20 vs 19
+Loss: 27 vs 13
+Push: 21 vs 21
+Loss: 28 vs 11
+Loss: 18 vs 21
+Loss: 24 vs 17
+Push: 19 vs 19
+Loss: 18 vs 20
+Loss: 23 vs 15
 Loss: 24 vs 20
-Loss: 23 vs 18
-Win: 21 vs 24
-
-
-22.april - 10:32:25
-
-Push: 18 vs 18
-
-
-22.april - 10:45:15
-
-Loss: 17 vs 21
-
-
-22.april - 10:55:12
-
-Loss: 23 vs 13
-
-
-22.april - 11:09:05
-
-Loss: 17 vs 19
-
-
-22.april - 11:16:14
-
+Win: 20 vs 19
+Loss: 22 vs 20
+Loss: 25 vs 20
+Win: 21 vs 11
+Push: 20 vs 20
+Loss: 19 vs 21
+Win: 18 vs 17
+Loss: 23 vs 20
 Push: 17 vs 17
+Win: 20 vs 19
+Loss: 22 vs 14
+Loss: 18 vs 19
+Loss: 17 vs 18
+Loss: 19 vs 20
+Win: 19 vs 17
+Win: 18 vs 17
+Loss: 20 vs 21
+Win: 18 vs 17
+Win: 20 vs 18
+Loss: 17 vs 20
+Loss: 24 vs 11
+Loss: 17 vs 20
+Loss: 22 vs 17
+Loss: 22 vs 11
+Loss: 26 vs 14
+Win: 21 vs 20
+Win: 19 vs 18
+Loss: 24 vs 12
+Loss: 23 vs 10
+Win: 20 vs 26
+Loss: 27 vs 13
 
 
-22.april - 11:44:25
+22.april - 15:15:50
 
-Win: 19 vs 24
+Loss: 18 vs 20
+Loss: 14 vs 21
+Loss: 18 vs 21
+Win: 19 vs 26
+Win: 19 vs 18
+Loss: 19 vs 20
+Loss: 26 vs 8
+Push: 20 vs 20

@@ -12,9 +12,11 @@ import java.util.Scanner;
 
 public class BlackjackResults implements ResultsInterface {
 	
-	private final String RESULT_HISTORY_FILENAME = "result_history.txt";
 	private List<String> resultStrings = new ArrayList<String>();
+	private List<String> sessionResultStrings = new ArrayList<String>();
 	private String stringDate;
+	
+	private int sessionWins, sessionLoss, sessionPushes;
 	
 	public void addDate() {
 		DateFormat sdf = new SimpleDateFormat("dd.MMMM - kk:mm:ss");
@@ -22,26 +24,15 @@ public class BlackjackResults implements ResultsInterface {
 		stringDate = sdf.format(date);
 		
 		resultStrings.add(stringDate + "\n");
+		sessionResultStrings.add(stringDate + "\n");
 	}
-	
-//	public void addUserName() {
-//		try {
-//	        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ui.fxml"));
-//	        
-//	        AppController appCon = fxmlLoader.getController();
-//	        String s = appCon.getPlayerName();
-//	        resultStrings.add(s);
-//	    } catch(Exception e) {
-//	        e.printStackTrace();
-//	    }
-//	}
-//	
+
 	public void writeResultsFile(String text) {
 		
 		resultStrings.add(text);
 		
 		try {
-			PrintWriter writer = new PrintWriter(RESULT_HISTORY_FILENAME);
+			PrintWriter writer = new PrintWriter("result_history.txt");
 			for(String e : resultStrings) {
 				writer.println(e);
 			}
@@ -62,9 +53,51 @@ public class BlackjackResults implements ResultsInterface {
 		resultStrings.add("\n");
 	}
 	
+	public void writeSessionResultsFile(String text) {
+		
+		sessionResultStrings.add(text);
+		
+		try {
+			PrintWriter writer = new PrintWriter("session_result.txt");
+			for(String e : sessionResultStrings) {
+				writer.println(e);
+			}
+			writer.flush();
+			writer.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void getSessionResultsFromFile(String filename) throws FileNotFoundException {
+		sessionLoss = 0;
+		sessionPushes = 0;
+		sessionWins = 0;
+		
 		Scanner scanner = new Scanner(new File(filename));
 		
-		
+		while(scanner.hasNextLine()) {
+			String line = scanner.nextLine();
+			if(line.contains("Win")) {
+				sessionWins++;
+			} else if(line.contains("Push")) {
+				sessionPushes++;
+			} else if(line.contains("Loss")) {
+				sessionLoss++;
+				
+			}
+		}
+	}
+	
+	public String getSessionLoss() {
+		return "" + sessionLoss;
+	}
+	
+	public String getSessionPushes() {
+		return "" + sessionPushes;
+	}
+	
+	public String getSessionWins() {
+		return "" + sessionWins;
 	}
 }

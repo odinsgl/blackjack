@@ -47,7 +47,13 @@ public class AppController {
 	private Label playerName;
 	
 	@FXML
-	private Label sessionScore; ////
+	private Label sessionWinsLabel;
+	
+	@FXML
+	private Label sessionPushesLabel;
+	
+	@FXML
+	private Label sessionLossLabel;
 	
 	@FXML
 	private List<ImageView> dlImgViewList = new ArrayList<ImageView>();
@@ -57,11 +63,11 @@ public class AppController {
 	
 	@FXML
 	private ImageView dealerImgView1, dealerImgView2, dealerImgView3, dealerImgView4,
-	dealerImgView5, dealerImgView6, dealerImgView7, dealerImgView8;
+	dealerImgView5, dealerImgView6, dealerImgView7, dealerImgView8, dealerImgView9;
 	
 	@FXML
 	private ImageView playerImgView1, playerImgView2, playerImgView3,playerImgView4,
-	playerImgView5, playerImgView6, playerImgView7, playerImgView8;
+	playerImgView5, playerImgView6, playerImgView7, playerImgView8, playerImgView9;
 	
 	private BlackjackPlayer player1;
 	
@@ -70,6 +76,8 @@ public class AppController {
 	private BlackjackDeck BJdeck;
 	
 	private BlackjackResults resultHistory;
+	
+	private BlackjackResults sessionResults;
 	
 	private int plImgViewListIndex;
 	
@@ -82,15 +90,17 @@ public class AppController {
 		dealer = new BlackjackPlayer();
 		
 		resultHistory = new BlackjackResults();
+		sessionResults = new BlackjackResults();
 		resultHistory.getResultsFromFile("result_history.txt");
 		resultHistory.addDate();
+		sessionResults.addDate();
 //		resultHistory.addUserName();
 		
 		dlImgViewList.addAll(Arrays.asList(dealerImgView1, dealerImgView2, dealerImgView3, dealerImgView4,
-				dealerImgView5, dealerImgView6, dealerImgView7, dealerImgView8));
+				dealerImgView5, dealerImgView6, dealerImgView7, dealerImgView8, dealerImgView9));
 		
 		plImgViewList.addAll(Arrays.asList(playerImgView1, playerImgView2, playerImgView3, playerImgView4,
-				playerImgView5, playerImgView6, playerImgView7, playerImgView8));
+				playerImgView5, playerImgView6, playerImgView7, playerImgView8, playerImgView9));
 		
 		hit.setDisable(true);
 		stand.setDisable(true);
@@ -106,7 +116,7 @@ public class AppController {
 //	}
 	
 	@FXML
-	public void onDeal() {
+	public void onDeal() throws FileNotFoundException {
 		BJdeck = new BlackjackDeck();
 		
 		player1.emptyHand();
@@ -180,34 +190,62 @@ public class AppController {
 	}
 	
 
-	public void setResultLabel() {
-		String s = player1.sumHand() + " vs " + dealer.sumHand();
+	public void setResultLabel() throws FileNotFoundException {
+		String s = player1.sumHand() + " vs " + dealer.sumHand(); // switch muy importante
 		if(dealer.hasBlackjack() && !player1.hasBlackjack()) {
 			resultLabel.setText("Dealer has blackjack! You lose.");
 			resultHistory.writeResultsFile("Loss: " + s);
+			sessionResults.writeSessionResultsFile("Loss: " + s);
+			sessionResults.getSessionResultsFromFile("session_result.txt");
+			sessionLossLabel.setText(sessionResults.getSessionLoss());
+			
 		} else if(player1.hasBlackjack() && !dealer.hasBlackjack()) {
 			resultLabel.setText("You got blackjack! Congratulations!");
 			resultHistory.writeResultsFile("Win: " + s);
+			sessionResults.writeSessionResultsFile("Win: " + s);
+			sessionResults.getSessionResultsFromFile("session_result.txt");
+			sessionWinsLabel.setText(sessionResults.getSessionWins());
+			
 		} else if(player1.hasBlackjack() && dealer.hasBlackjack()) {
 			resultLabel.setText("You both got blackjack! It's a PUSH!");
 			resultHistory.writeResultsFile("Push: " + s);
+			sessionResults.writeSessionResultsFile("Push: " + s);
+			sessionResults.getSessionResultsFromFile("session_result.txt");
+			sessionPushesLabel.setText(sessionResults.getSessionPushes());
+			
 		} else if(player1.sumHand() > 21) {
 			resultLabel.setText("You busted :(");
 			resultHistory.writeResultsFile("Loss: " + s);
+			sessionResults.writeSessionResultsFile("Loss: " + s);
+			sessionResults.getSessionResultsFromFile("session_result.txt");
+			sessionLossLabel.setText(sessionResults.getSessionLoss());
+			
 		} else if(player1.sumHand() <= 21 && (dealer.sumHand() < player1.sumHand() || dealer.sumHand() > 21)) {
 			resultLabel.setText("You win with " + player1.sumHand() + " against " + dealer.sumHand() + "!");
 			resultHistory.writeResultsFile("Win: " + s);
+			sessionResults.writeSessionResultsFile("Win: " + s);
+			sessionResults.getSessionResultsFromFile("session_result.txt");
+			sessionWinsLabel.setText(sessionResults.getSessionWins());
+			
 		} else if(player1.sumHand() <= 21 && (dealer.sumHand() > player1.sumHand() && dealer.sumHand() <= 21)) {
 			resultLabel.setText("You lost with " + player1.sumHand() + " against " + dealer.sumHand() + "!");
 			resultHistory.writeResultsFile("Loss: " + s);
+			sessionResults.writeSessionResultsFile("Loss: " + s);
+			sessionResults.getSessionResultsFromFile("session_result.txt");
+			sessionLossLabel.setText(sessionResults.getSessionLoss());
+			
 		} else if(player1.sumHand() <= 21 && dealer.sumHand() == player1.sumHand()) {
 			resultLabel.setText("You both have " + player1.sumHand() + " it's a push!");
 			resultHistory.writeResultsFile("Push: " + s);
+			sessionResults.writeSessionResultsFile("Push: " + s);
+			sessionResults.getSessionResultsFromFile("session_result.txt");
+			sessionPushesLabel.setText(sessionResults.getSessionPushes());
+			
 		}
 	}
 	
 	@FXML
-	public void onHit() {
+	public void onHit() throws FileNotFoundException {
 		
 		player1.addCard(BJdeck.dealCard());
 		
@@ -233,7 +271,7 @@ public class AppController {
 	}
 	
 	@FXML
-	public void onStand() {
+	public void onStand() throws FileNotFoundException {
 		spoilCard();
 		
 		while(dealer.sumHand() < 17) {

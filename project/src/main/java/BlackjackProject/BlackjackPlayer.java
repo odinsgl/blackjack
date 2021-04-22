@@ -2,7 +2,7 @@ package BlackjackProject;
 
 public class BlackjackPlayer {
 	private int amountOfCards;
-	private BlackjackCard[] hand = new BlackjackCard[8];
+	private BlackjackCard[] hand = new BlackjackCard[9];
 	
 	public void addCard(BlackjackCard card) {
 		this.hand[amountOfCards] = card;
@@ -125,5 +125,3 @@ public int sumHandWOFirst() {
 		this.amountOfCards = 0;
 	}
 }
-	
-// skrive session games til fil? Reset session når appen åpnes?
