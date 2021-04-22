@@ -1,0 +1,52 @@
+
+
+20.april - 16:18:43
+
+Loss: 19 vs 20
+Win: 21 vs 22
+Loss: 25 vs 19
+
+
+20.april - 16:21:05
+
+Win: 20 vs 23
+
+
+22.april - 10:04:23
+
+Win: 20 vs 24
+Loss: 19 vs 20
+Loss: 23 vs 17
+Loss: 24 vs 20
+Loss: 23 vs 18
+Win: 21 vs 24
+
+
+22.april - 10:32:25
+
+Push: 18 vs 18
+
+
+22.april - 10:45:15
+
+Loss: 17 vs 21
+
+
+22.april - 10:55:12
+
+Loss: 23 vs 13
+
+
+22.april - 11:09:05
+
+Loss: 17 vs 19
+
+
+22.april - 11:16:14
+
+Push: 17 vs 17
+
+
+22.april - 11:44:25
+
+Win: 19 vs 24

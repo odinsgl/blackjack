@@ -1,22 +1,30 @@
 package BlackjackProject;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 
 
 public class AppController {
-
+	
+	@FXML
+	private MenuItem closeWindow;
+	
+	@FXML
+	private MenuItem allTimeResults;
+	
 	@FXML
 	private Button stand;
 	
@@ -39,6 +47,9 @@ public class AppController {
 	private Label playerName;
 	
 	@FXML
+	private Label sessionScore; ////
+	
+	@FXML
 	private List<ImageView> dlImgViewList = new ArrayList<ImageView>();
 	
 	@FXML
@@ -52,12 +63,6 @@ public class AppController {
 	private ImageView playerImgView1, playerImgView2, playerImgView3,playerImgView4,
 	playerImgView5, playerImgView6, playerImgView7, playerImgView8;
 	
-	@FXML
-	private HBox dealerHBox;
-	
-	@FXML
-	private HBox playerHBox;
-	
 	private BlackjackPlayer player1;
 	
 	private BlackjackPlayer dealer;
@@ -70,11 +75,16 @@ public class AppController {
 	
 	private int dlImgViewListIndex;
 	
+	
 	public void initialize() throws FileNotFoundException {
 		
+		player1 = new BlackjackPlayer();
+		dealer = new BlackjackPlayer();
+		
 		resultHistory = new BlackjackResults();
-		resultHistory.getResultsFromFile("result_history");
+		resultHistory.getResultsFromFile("result_history.txt");
 		resultHistory.addDate();
+//		resultHistory.addUserName();
 		
 		dlImgViewList.addAll(Arrays.asList(dealerImgView1, dealerImgView2, dealerImgView3, dealerImgView4,
 				dealerImgView5, dealerImgView6, dealerImgView7, dealerImgView8));
@@ -84,25 +94,30 @@ public class AppController {
 		
 		hit.setDisable(true);
 		stand.setDisable(true);
-		
-		
-		
-		//resultHistory.getResultStringList().clear();
+	}
+
+	
+	public void setPlayerName(String name) {
+		playerName.setText(name);
 	}
 	
-//	public void myFtn(String text) {
-//		playerName.setText(text);
+//	public String getPlayerName() {
+//		return playerName.getText();
 //	}
 	
 	@FXML
 	public void onDeal() {
+		BJdeck = new BlackjackDeck();
+		
+		player1.emptyHand();
+		dealer.emptyHand();
 		
 		resultLabel.setText(null);
 		
 		plImgViewListIndex = 2;
 		dlImgViewListIndex = 2;
 
-		for (int i = 0; i < dlImgViewList.size(); i++) {
+		for (int i = 0; i < dlImgViewList.size(); i++) {	// tømmer imageview'ene
 			dlImgViewList.get(i).setImage(null);
 		}
 		
@@ -114,10 +129,7 @@ public class AppController {
 		hit.setDisable(false);
 		stand.setDisable(false);
 		
-		BJdeck = new BlackjackDeck();
 		
-		player1 = new BlackjackPlayer();
-		dealer = new BlackjackPlayer();
 		
 		player1.addCard(BJdeck.dealCard());
 		dealer.addCard(BJdeck.dealCard());
@@ -125,7 +137,7 @@ public class AppController {
 		player1.addCard(BJdeck.dealCard());
 		dealer.addCard(BJdeck.dealCard());
 		
-		anyAces();
+		playerHandValue.setText(player1.ifHasAce());//
 		
 		dealerHandValue.setText(String.valueOf(dealer.sumHandWOFirst()));
 		
@@ -133,36 +145,27 @@ public class AppController {
 			spoilCard();
 			setResultLabel();
 			} else {
-			Image dlImg1 = new Image(new File("C:\\Users\\oglad\\Documents\\BlackjackCards\\purple_back.png").toURI().toString());
+			Image dlImg1 = new Image("file:purple_back.png");
 			dealerImgView1.setImage(dlImg1);
 			
 			
 		}
-		Image dlImg2 = new Image(new File("C:\\Users\\oglad\\Documents\\BlackjackCards\\" + dealer.getCard(1).toString() + ".png").toURI().toString());
+		Image dlImg2 = new Image("file:" + dealer.getCard(1).toString() + ".png");
 		dealerImgView2.setImage(dlImg2);
 		
 		
-		Image plImg1 = new Image(new File("C:\\Users\\oglad\\Documents\\BlackjackCards\\" + player1.getCard(0).toString() + ".png").toURI().toString());
+		Image plImg1 = new Image("file:" + player1.getCard(0).toString() + ".png");
 		playerImgView1.setImage(plImg1);
 		
 		
-		Image plImg2 = new Image(new File("C:\\Users\\oglad\\Documents\\BlackjackCards\\" + player1.getCard(1).toString() + ".png").toURI().toString());
+		Image plImg2 = new Image("file:" + player1.getCard(1).toString() + ".png");
 		playerImgView2.setImage(plImg2);
 		
 	}
 	
-	public void anyAces() {
-		
-		if(player1.aceAmount() > 0 && player1.sumHand() < 21 && player1.sumHandAceAsOne() != player1.sumHand()) {
-			playerHandValue.setText(String.valueOf(player1.sumHand()) + " / " + player1.sumHandAceAsOne());
-		} else {
-			playerHandValue.setText(String.valueOf(player1.sumHand()));
-		}
-	}
-	
 	public void dealerFinish() {
 		dealer.addCard(BJdeck.dealCard());
-		Image dlImg = new Image(new File("C:\\Users\\oglad\\Documents\\BlackjackCards\\" + dealer.getCard(dealer.getSize() - 1).toString() + ".png").toURI().toString());
+		Image dlImg = new Image("file:" + dealer.getCard(dealer.getSize() - 1).toString() + ".png");
 		dlImgViewList.get(dlImgViewListIndex).setImage(dlImg);
 		dlImgViewListIndex++;
 	}
@@ -172,7 +175,7 @@ public class AppController {
 		deal.setDisable(false);
 		hit.setDisable(true);
 		stand.setDisable(true);
-		Image dlImg1 = new Image(new File("C:\\Users\\oglad\\Documents\\BlackjackCards\\" + dealer.getCard(0).toString() + ".png").toURI().toString());
+		Image dlImg1 = new Image("file:" + dealer.getCard(0).toString() + ".png");
 		dealerImgView1.setImage(dlImg1);
 	}
 	
@@ -222,11 +225,11 @@ public class AppController {
 			
 		}
 		
-		Image plHitImg = new Image(new File("C:\\Users\\oglad\\Documents\\BlackjackCards\\" + player1.getCard(player1.getSize() - 1).toString() + ".png").toURI().toString());
+		Image plHitImg = new Image("file:" + player1.getCard(player1.getSize() - 1).toString() + ".png");
 		plImgViewList.get(plImgViewListIndex).setImage(plHitImg);
 		plImgViewListIndex++;
 		
-		anyAces();
+		playerHandValue.setText(player1.ifHasAce());//
 	}
 	
 	@FXML
@@ -244,4 +247,14 @@ public class AppController {
 		
 	}
 	
+	@FXML
+	private void closeWindowAction(){
+	    Platform.exit();
+	}
+	
+	@FXML
+	private void openResultHistoryFile() throws IOException {
+		File resultFile = new File("result_history.txt");
+		Desktop.getDesktop().open(resultFile);
+	}
 }

@@ -1,7 +1,6 @@
 package BlackjackProject;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,20 +22,20 @@ class BlackjackCardTest {
 	
 	@Test
 	@DisplayName("Sjekk at riktig sort returneres")
-	void testSuit() {
-		assertEquals('S', card1.getSuit());
-		assertEquals('H', card2.getSuit());
-		assertEquals('D', card3.getSuit());
-		assertEquals('C', card4.getSuit());
+	void testGetSuit() {
+		Assertions.assertEquals('S', card1.getSuit());
+		Assertions.assertEquals('H', card2.getSuit());
+		Assertions.assertEquals('D', card3.getSuit());
+		Assertions.assertEquals('C', card4.getSuit());
 	}
 	
 	@Test
 	@DisplayName("Sjekk at riktig tall returneres")
-	void testFace() {
-		assertEquals(3, card1.getFace());
-		assertEquals(11, card2.getFace());
-		assertEquals(1, card3.getFace());
-		assertEquals(13, card4.getFace());
+	void testGetFace() {
+		Assertions.assertEquals(3, card1.getFace());
+		Assertions.assertEquals(11, card2.getFace());
+		Assertions.assertEquals(1, card3.getFace());
+		Assertions.assertEquals(13, card4.getFace());
 	}
 
 }

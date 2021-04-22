@@ -12,7 +12,7 @@ import java.util.Scanner;
 
 public class BlackjackResults implements ResultsInterface {
 	
-	private final String resultHistory = "result_history";
+	private final String RESULT_HISTORY_FILENAME = "result_history.txt";
 	private List<String> resultStrings = new ArrayList<String>();
 	private String stringDate;
 	
@@ -24,12 +24,24 @@ public class BlackjackResults implements ResultsInterface {
 		resultStrings.add(stringDate + "\n");
 	}
 	
+//	public void addUserName() {
+//		try {
+//	        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ui.fxml"));
+//	        
+//	        AppController appCon = fxmlLoader.getController();
+//	        String s = appCon.getPlayerName();
+//	        resultStrings.add(s);
+//	    } catch(Exception e) {
+//	        e.printStackTrace();
+//	    }
+//	}
+//	
 	public void writeResultsFile(String text) {
 		
 		resultStrings.add(text);
 		
 		try {
-			PrintWriter writer = new PrintWriter(resultHistory);
+			PrintWriter writer = new PrintWriter(RESULT_HISTORY_FILENAME);
 			for(String e : resultStrings) {
 				writer.println(e);
 			}
@@ -48,6 +60,11 @@ public class BlackjackResults implements ResultsInterface {
 			resultStrings.add(line);
 		}
 		resultStrings.add("\n");
+	}
+	
+	public void getSessionResultsFromFile(String filename) throws FileNotFoundException {
+		Scanner scanner = new Scanner(new File(filename));
+		
 		
 	}
 }

@@ -1,7 +1,6 @@
 package BlackjackProject;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,7 +30,7 @@ class BlackjackPlayerTest {
 		player.addCard(card4);
 		player.addCard(card3);
 		
-		assertEquals(2, player.getSize());
+		Assertions.assertEquals(2, player.getSize());
 	}
 	
 	@Test
@@ -42,7 +41,7 @@ class BlackjackPlayerTest {
 		player.addCard(card2);
 		player.addCard(card1);
 		
-		assertEquals(3, player.aceAmount());
+		Assertions.assertEquals(3, player.aceAmount());
 	}
 	
 	@Test
@@ -53,7 +52,7 @@ class BlackjackPlayerTest {
 		player.addCard(card1);
 		player.addCard(card4);
 		
-		assertEquals(19, player.sumHand());
+		Assertions.assertEquals(19, player.sumHand());
 	}
 	
 	@Test
@@ -62,7 +61,7 @@ class BlackjackPlayerTest {
 		player.addCard(card1);
 		player.addCard(card4);
 		
-		assertEquals(8, player.sumHandAceAsOne());
+		Assertions.assertEquals(8, player.sumHandAceAsOne());
 	}
 	
 	@Test
@@ -70,12 +69,12 @@ class BlackjackPlayerTest {
 	void sumHandWOFirst() {
 		player.addCard(card2);
 		player.addCard(card4);
-		assertEquals(7, player.sumHandWOFirst());
+		Assertions.assertEquals(7, player.sumHandWOFirst());
 		
 		player1 = new BlackjackPlayer();
 		player1.addCard(card4);
 		player1.addCard(card1);
-		assertEquals(11, player1.sumHandWOFirst());
+		Assertions.assertEquals(11, player1.sumHandWOFirst());
 	}
 	
 	@Test
@@ -86,10 +85,10 @@ class BlackjackPlayerTest {
 		player.addCard(card3);
 		player.addCard(card4);
 		
-		assertEquals(card1, player.getCard(0));
-		assertEquals(card2, player.getCard(1));
-		assertEquals(card3, player.getCard(2));
-		assertEquals(card4, player.getCard(3));
+		Assertions.assertEquals(card1, player.getCard(0));
+		Assertions.assertEquals(card2, player.getCard(1));
+		Assertions.assertEquals(card3, player.getCard(2));
+		Assertions.assertEquals(card4, player.getCard(3));
 	}
 	
 	@Test
@@ -99,13 +98,13 @@ class BlackjackPlayerTest {
 		player.addCard(card3);
 		player.addCard(card1);
 		
-		assertFalse(player.hasBlackjack());
+		Assertions.assertFalse(player.hasBlackjack());	//ikke blackjack hvis man får 21 med mer enn 2 kort.
 		
 		player1 = new BlackjackPlayer();
 		player1.addCard(card1);
 		player1.addCard(card2);
 		
-		assertTrue(player1.hasBlackjack());
+		Assertions.assertTrue(player1.hasBlackjack());
 	}
 
 }

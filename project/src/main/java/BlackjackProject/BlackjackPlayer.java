@@ -21,6 +21,14 @@ public class BlackjackPlayer {
 		return amountOfAces;
 	}
 	
+	public String ifHasAce() {
+		if(this.aceAmount() > 0 && this.sumHand() < 21 && this.sumHandAceAsOne() != this.sumHand()) {
+			return(String.valueOf(this.sumHand()) + " / " + this.sumHandAceAsOne());
+		} else {
+			return(String.valueOf(this.sumHand()));
+		}
+	}
+	
 	public int sumHand() {
 		
 		int handSum = 0;
@@ -113,7 +121,9 @@ public int sumHandWOFirst() {
         return hand[index];
     }
 	
-	
+	public void emptyHand() {
+		this.amountOfCards = 0;
+	}
 }
 	
 // skrive session games til fil? Reset session når appen åpnes?
