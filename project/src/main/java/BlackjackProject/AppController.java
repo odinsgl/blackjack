@@ -97,7 +97,6 @@ public class AppController {
 		resultHistory.getResultsFromFile(TEXT_PATH + "result_history.txt");
 		resultHistory.addDate();
 		sessionResults.addDate();
-//		resultHistory.addUserName();
 		
 		dlImgViewList.addAll(Arrays.asList(dealerImgView1, dealerImgView2, dealerImgView3, dealerImgView4,
 				dealerImgView5, dealerImgView6, dealerImgView7, dealerImgView8, dealerImgView9));
@@ -121,10 +120,6 @@ public class AppController {
 	public static String getTextPath() {
 		return TEXT_PATH;
 	}
-	
-//	public String getPlayerName() {
-//		return playerName.getText();
-//	}
 	
 	@FXML
 	public void onDeal() {
@@ -184,7 +179,7 @@ public class AppController {
 		
 	}
 	
-	public void dealerFinish() {
+	public void dealerFinish() { 	//dealer fullfører sin tur.
 		dealer.addCard(BJdeck.dealCard());
 		Image dlImg = new Image(IMAGE_PATH + dealer.getCard(dealer.getSize() - 1).toString() + ".png");
 		dlImgViewList.get(dlImgViewListIndex).setImage(dlImg);
@@ -201,7 +196,7 @@ public class AppController {
 	}
 	
 	public void setResultLabel() {
-		String s = player1.sumHand() + " vs " + dealer.sumHand(); // switch muy importante
+		String s = player1.sumHand() + " vs " + dealer.sumHand();
 		if(dealer.hasBlackjack() && !player1.hasBlackjack()) {
 			resultLabel.setText("Dealer has blackjack! You lose.");
 			resultHistory.writeResultsFile("Loss: " + s);
