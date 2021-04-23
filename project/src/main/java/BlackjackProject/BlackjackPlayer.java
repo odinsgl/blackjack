@@ -9,7 +9,7 @@ public class BlackjackPlayer {
 		this.amountOfCards++;
 	}
 	
-	public int aceAmount() {
+	public int aceAmount() {	//returner hvor mange ace man har.
 		int amountOfAces = 0;
 		for (int i = 0; i < hand.length; i++) {
 			if(hand[i] != null) {
@@ -21,7 +21,7 @@ public class BlackjackPlayer {
 		return amountOfAces;
 	}
 	
-	public String ifHasAce() {
+	public String ifHasAce() {		//returner både sum med og uten ace om man har ace.
 		if(this.aceAmount() > 0 && this.sumHand() < 21 && this.sumHandAceAsOne() != this.sumHand()) {
 			return(String.valueOf(this.sumHand()) + " / " + this.sumHandAceAsOne());
 		} else {
@@ -29,7 +29,7 @@ public class BlackjackPlayer {
 		}
 	}
 	
-	public int sumHand() {
+	public int sumHand() {	//returner den høyeste summen man kan ha uten å buste.
 		
 		int handSum = 0;
 		int numberOfAces = 0;
@@ -56,7 +56,7 @@ public class BlackjackPlayer {
 		return handSum;
 	}
 	
-public int sumHandAceAsOne() {
+	public int sumHandAceAsOne() {	//returner summen når ace er 1.
 		
 		int handSum = 0;
 		int cardValue;
@@ -76,8 +76,8 @@ public int sumHandAceAsOne() {
 		return handSum;
 	}
 	
-public int sumHandWOFirst() {
-		
+	public int sumHandWOFirst() {	//returner summen uten å telle med første kort.
+									//(når dealer sitt første kort er gjemt)
 		int handSum = 0;
 		int numberOfAces = 0;
 		int cardValue;
@@ -103,7 +103,7 @@ public int sumHandWOFirst() {
 		return handSum;
 	}
 
-	public boolean hasBlackjack() {
+	public boolean hasBlackjack() {		//blackjack = 21 på 2 kort.
 		if (sumHand() == 21 && getSize() == 2) {
 			return true;
 		}

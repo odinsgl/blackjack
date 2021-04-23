@@ -32,7 +32,7 @@ public class BlackjackResults implements ResultsInterface {
 		resultStrings.add(text);
 		
 		try {
-			PrintWriter writer = new PrintWriter("result_history.txt");
+			PrintWriter writer = new PrintWriter(AppController.getTextPath() + "result_history.txt");
 			for(String e : resultStrings) {
 				writer.println(e);
 			}
@@ -43,12 +43,15 @@ public class BlackjackResults implements ResultsInterface {
 		}
 	}
 	
-	public void getResultsFromFile(String filename) throws FileNotFoundException {
-		Scanner scanner = new Scanner(new File(filename));
-		
-		while(scanner.hasNextLine()) {
-			String line = scanner.nextLine();
-			resultStrings.add(line);
+	public void getResultsFromFile(String filename) {
+		try {
+			Scanner scanner = new Scanner(new File(filename));
+			while(scanner.hasNextLine()) {
+				String line = scanner.nextLine();
+				resultStrings.add(line);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
 		resultStrings.add("\n");
 	}
@@ -58,7 +61,7 @@ public class BlackjackResults implements ResultsInterface {
 		sessionResultStrings.add(text);
 		
 		try {
-			PrintWriter writer = new PrintWriter("session_result.txt");
+			PrintWriter writer = new PrintWriter(AppController.getTextPath() + "session_result.txt");
 			for(String e : sessionResultStrings) {
 				writer.println(e);
 			}
@@ -69,23 +72,26 @@ public class BlackjackResults implements ResultsInterface {
 		}
 	}
 	
-	public void getSessionResultsFromFile(String filename) throws FileNotFoundException {
+	public void getSessionResultsFromFile(String filename){
 		sessionLoss = 0;
 		sessionPushes = 0;
 		sessionWins = 0;
-		
-		Scanner scanner = new Scanner(new File(filename));
-		
-		while(scanner.hasNextLine()) {
-			String line = scanner.nextLine();
-			if(line.contains("Win")) {
-				sessionWins++;
-			} else if(line.contains("Push")) {
-				sessionPushes++;
-			} else if(line.contains("Loss")) {
-				sessionLoss++;
-				
+		try {
+			Scanner scanner = new Scanner(new File(filename));
+			
+			while(scanner.hasNextLine()) {
+				String line = scanner.nextLine();
+				if(line.contains("Win")) {
+					sessionWins++;
+				} else if(line.contains("Push")) {
+					sessionPushes++;
+				} else if(line.contains("Loss")) {
+					sessionLoss++;
+					
+				}
 			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 	

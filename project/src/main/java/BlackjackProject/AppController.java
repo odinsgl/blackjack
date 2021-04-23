@@ -2,7 +2,6 @@ package BlackjackProject;
 
 import java.awt.Desktop;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -83,15 +82,19 @@ public class AppController {
 	
 	private int dlImgViewListIndex;
 	
+	private final static String IMAGE_PATH = "file:src/main/resources/";
 	
-	public void initialize() throws FileNotFoundException {
+	private final static String TEXT_PATH = "src/main/resources/";
+	
+	
+	public void initialize() {
 		
 		player1 = new BlackjackPlayer();
 		dealer = new BlackjackPlayer();
 		
 		resultHistory = new BlackjackResults();
 		sessionResults = new BlackjackResults();
-		resultHistory.getResultsFromFile("result_history.txt");
+		resultHistory.getResultsFromFile(TEXT_PATH + "result_history.txt");
 		resultHistory.addDate();
 		sessionResults.addDate();
 //		resultHistory.addUserName();
@@ -111,12 +114,20 @@ public class AppController {
 		playerName.setText(name);
 	}
 	
+	public static String getImagePath() {
+		return IMAGE_PATH;
+	}
+	
+	public static String getTextPath() {
+		return TEXT_PATH;
+	}
+	
 //	public String getPlayerName() {
 //		return playerName.getText();
 //	}
 	
 	@FXML
-	public void onDeal() throws FileNotFoundException {
+	public void onDeal() {
 		BJdeck = new BlackjackDeck();
 		
 		player1.emptyHand();
@@ -155,27 +166,27 @@ public class AppController {
 			spoilCard();
 			setResultLabel();
 			} else {
-			Image dlImg1 = new Image("file:purple_back.png");
+			Image dlImg1 = new Image(IMAGE_PATH + "purple_back.png");
 			dealerImgView1.setImage(dlImg1);
 			
 			
 		}
-		Image dlImg2 = new Image("file:" + dealer.getCard(1).toString() + ".png");
+		Image dlImg2 = new Image(IMAGE_PATH + dealer.getCard(1).toString() + ".png");
 		dealerImgView2.setImage(dlImg2);
 		
 		
-		Image plImg1 = new Image("file:" + player1.getCard(0).toString() + ".png");
+		Image plImg1 = new Image(IMAGE_PATH + player1.getCard(0).toString() + ".png");
 		playerImgView1.setImage(plImg1);
 		
 		
-		Image plImg2 = new Image("file:" + player1.getCard(1).toString() + ".png");
+		Image plImg2 = new Image(IMAGE_PATH + player1.getCard(1).toString() + ".png");
 		playerImgView2.setImage(plImg2);
 		
 	}
 	
 	public void dealerFinish() {
 		dealer.addCard(BJdeck.dealCard());
-		Image dlImg = new Image("file:" + dealer.getCard(dealer.getSize() - 1).toString() + ".png");
+		Image dlImg = new Image(IMAGE_PATH + dealer.getCard(dealer.getSize() - 1).toString() + ".png");
 		dlImgViewList.get(dlImgViewListIndex).setImage(dlImg);
 		dlImgViewListIndex++;
 	}
@@ -185,67 +196,66 @@ public class AppController {
 		deal.setDisable(false);
 		hit.setDisable(true);
 		stand.setDisable(true);
-		Image dlImg1 = new Image("file:" + dealer.getCard(0).toString() + ".png");
+		Image dlImg1 = new Image(IMAGE_PATH + dealer.getCard(0).toString() + ".png");
 		dealerImgView1.setImage(dlImg1);
 	}
 	
-
-	public void setResultLabel() throws FileNotFoundException {
+	public void setResultLabel() {
 		String s = player1.sumHand() + " vs " + dealer.sumHand(); // switch muy importante
 		if(dealer.hasBlackjack() && !player1.hasBlackjack()) {
 			resultLabel.setText("Dealer has blackjack! You lose.");
 			resultHistory.writeResultsFile("Loss: " + s);
 			sessionResults.writeSessionResultsFile("Loss: " + s);
-			sessionResults.getSessionResultsFromFile("session_result.txt");
+			sessionResults.getSessionResultsFromFile(TEXT_PATH + "session_result.txt");
 			sessionLossLabel.setText(sessionResults.getSessionLoss());
 			
 		} else if(player1.hasBlackjack() && !dealer.hasBlackjack()) {
 			resultLabel.setText("You got blackjack! Congratulations!");
 			resultHistory.writeResultsFile("Win: " + s);
 			sessionResults.writeSessionResultsFile("Win: " + s);
-			sessionResults.getSessionResultsFromFile("session_result.txt");
+			sessionResults.getSessionResultsFromFile(TEXT_PATH + "session_result.txt");
 			sessionWinsLabel.setText(sessionResults.getSessionWins());
 			
 		} else if(player1.hasBlackjack() && dealer.hasBlackjack()) {
 			resultLabel.setText("You both got blackjack! It's a PUSH!");
 			resultHistory.writeResultsFile("Push: " + s);
 			sessionResults.writeSessionResultsFile("Push: " + s);
-			sessionResults.getSessionResultsFromFile("session_result.txt");
+			sessionResults.getSessionResultsFromFile(TEXT_PATH + "session_result.txt");
 			sessionPushesLabel.setText(sessionResults.getSessionPushes());
 			
 		} else if(player1.sumHand() > 21) {
 			resultLabel.setText("You busted :(");
 			resultHistory.writeResultsFile("Loss: " + s);
 			sessionResults.writeSessionResultsFile("Loss: " + s);
-			sessionResults.getSessionResultsFromFile("session_result.txt");
+			sessionResults.getSessionResultsFromFile(TEXT_PATH + "session_result.txt");
 			sessionLossLabel.setText(sessionResults.getSessionLoss());
 			
 		} else if(player1.sumHand() <= 21 && (dealer.sumHand() < player1.sumHand() || dealer.sumHand() > 21)) {
 			resultLabel.setText("You win with " + player1.sumHand() + " against " + dealer.sumHand() + "!");
 			resultHistory.writeResultsFile("Win: " + s);
 			sessionResults.writeSessionResultsFile("Win: " + s);
-			sessionResults.getSessionResultsFromFile("session_result.txt");
+			sessionResults.getSessionResultsFromFile(TEXT_PATH + "session_result.txt");
 			sessionWinsLabel.setText(sessionResults.getSessionWins());
 			
 		} else if(player1.sumHand() <= 21 && (dealer.sumHand() > player1.sumHand() && dealer.sumHand() <= 21)) {
 			resultLabel.setText("You lost with " + player1.sumHand() + " against " + dealer.sumHand() + "!");
 			resultHistory.writeResultsFile("Loss: " + s);
 			sessionResults.writeSessionResultsFile("Loss: " + s);
-			sessionResults.getSessionResultsFromFile("session_result.txt");
+			sessionResults.getSessionResultsFromFile(TEXT_PATH + "session_result.txt");
 			sessionLossLabel.setText(sessionResults.getSessionLoss());
 			
 		} else if(player1.sumHand() <= 21 && dealer.sumHand() == player1.sumHand()) {
 			resultLabel.setText("You both have " + player1.sumHand() + " it's a push!");
 			resultHistory.writeResultsFile("Push: " + s);
 			sessionResults.writeSessionResultsFile("Push: " + s);
-			sessionResults.getSessionResultsFromFile("session_result.txt");
+			sessionResults.getSessionResultsFromFile(TEXT_PATH + "session_result.txt");
 			sessionPushesLabel.setText(sessionResults.getSessionPushes());
 			
 		}
 	}
 	
 	@FXML
-	public void onHit() throws FileNotFoundException {
+	public void onHit() {
 		
 		player1.addCard(BJdeck.dealCard());
 		
@@ -263,7 +273,7 @@ public class AppController {
 			
 		}
 		
-		Image plHitImg = new Image("file:" + player1.getCard(player1.getSize() - 1).toString() + ".png");
+		Image plHitImg = new Image(IMAGE_PATH + player1.getCard(player1.getSize() - 1).toString() + ".png");
 		plImgViewList.get(plImgViewListIndex).setImage(plHitImg);
 		plImgViewListIndex++;
 		
@@ -271,7 +281,7 @@ public class AppController {
 	}
 	
 	@FXML
-	public void onStand() throws FileNotFoundException {
+	public void onStand() {
 		spoilCard();
 		
 		while(dealer.sumHand() < 17) {
@@ -292,7 +302,7 @@ public class AppController {
 	
 	@FXML
 	private void openResultHistoryFile() throws IOException {
-		File resultFile = new File("result_history.txt");
+		File resultFile = new File(TEXT_PATH + "result_history.txt");
 		Desktop.getDesktop().open(resultFile);
 	}
 }

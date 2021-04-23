@@ -4,7 +4,7 @@ public class BlackjackCard {
 	private char suit;
 	private int face;
 	
-	public BlackjackCard(char suit, int face) { // lager objektet BlackjackCard
+	public BlackjackCard(char suit, int face) {
 		this.suit = suit;
 		this.face = face;
 	}
@@ -18,7 +18,7 @@ public class BlackjackCard {
 	}
 	
 	@Override
-	public String toString() {
+	public String toString() {		//lager en string-versjon av kort som matcher navnet på bildene.
 		return "" + face + suit;
 	}
 }
