@@ -50,6 +50,7 @@ public class BlackjackResults implements ResultsInterface {
 				String line = scanner.nextLine();
 				resultStrings.add(line);
 			}
+			scanner.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -87,9 +88,25 @@ public class BlackjackResults implements ResultsInterface {
 					sessionPushes++;
 				} else if(line.contains("Loss")) {
 					sessionLoss++;
-					
 				}
 			}
+			scanner.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void clearSessionResultsFile() {
+		sessionLoss = 0;
+		sessionPushes = 0;
+		sessionWins = 0;
+		try {
+			PrintWriter writer = new PrintWriter(AppController.getTextPath() + "session_result.txt");
+			
+			writer.println("");
+			writer.flush();
+			writer.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

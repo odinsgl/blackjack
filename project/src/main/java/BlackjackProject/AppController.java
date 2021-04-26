@@ -34,6 +34,9 @@ public class AppController {
 	private Button deal;
 	
 	@FXML
+	private Button reset; //
+	
+	@FXML
 	private Label playerHandValue;
 	
 	@FXML
@@ -123,6 +126,7 @@ public class AppController {
 	
 	@FXML
 	public void onDeal() {
+		
 		BJdeck = new BlackjackDeck();
 		
 		player1.emptyHand();
@@ -144,6 +148,7 @@ public class AppController {
 		deal.setDisable(true);
 		hit.setDisable(false);
 		stand.setDisable(false);
+		reset.setDisable(true);
 		
 		
 		
@@ -203,6 +208,7 @@ public class AppController {
 			sessionResults.writeSessionResultsFile("Loss: " + s);
 			sessionResults.getSessionResultsFromFile(TEXT_PATH + "session_result.txt");
 			sessionLossLabel.setText(sessionResults.getSessionLoss());
+			reset.setDisable(false);
 			
 		} else if(player1.hasBlackjack() && !dealer.hasBlackjack()) {
 			resultLabel.setText("You got blackjack! Congratulations!");
@@ -210,6 +216,7 @@ public class AppController {
 			sessionResults.writeSessionResultsFile("Win: " + s);
 			sessionResults.getSessionResultsFromFile(TEXT_PATH + "session_result.txt");
 			sessionWinsLabel.setText(sessionResults.getSessionWins());
+			reset.setDisable(false);
 			
 		} else if(player1.hasBlackjack() && dealer.hasBlackjack()) {
 			resultLabel.setText("You both got blackjack! It's a PUSH!");
@@ -217,6 +224,7 @@ public class AppController {
 			sessionResults.writeSessionResultsFile("Push: " + s);
 			sessionResults.getSessionResultsFromFile(TEXT_PATH + "session_result.txt");
 			sessionPushesLabel.setText(sessionResults.getSessionPushes());
+			reset.setDisable(false);
 			
 		} else if(player1.sumHand() > 21) {
 			resultLabel.setText("You busted :(");
@@ -224,6 +232,7 @@ public class AppController {
 			sessionResults.writeSessionResultsFile("Loss: " + s);
 			sessionResults.getSessionResultsFromFile(TEXT_PATH + "session_result.txt");
 			sessionLossLabel.setText(sessionResults.getSessionLoss());
+			reset.setDisable(false);
 			
 		} else if(player1.sumHand() <= 21 && (dealer.sumHand() < player1.sumHand() || dealer.sumHand() > 21)) {
 			resultLabel.setText("You win with " + player1.sumHand() + " against " + dealer.sumHand() + "!");
@@ -231,6 +240,7 @@ public class AppController {
 			sessionResults.writeSessionResultsFile("Win: " + s);
 			sessionResults.getSessionResultsFromFile(TEXT_PATH + "session_result.txt");
 			sessionWinsLabel.setText(sessionResults.getSessionWins());
+			reset.setDisable(false);
 			
 		} else if(player1.sumHand() <= 21 && (dealer.sumHand() > player1.sumHand() && dealer.sumHand() <= 21)) {
 			resultLabel.setText("You lost with " + player1.sumHand() + " against " + dealer.sumHand() + "!");
@@ -238,6 +248,7 @@ public class AppController {
 			sessionResults.writeSessionResultsFile("Loss: " + s);
 			sessionResults.getSessionResultsFromFile(TEXT_PATH + "session_result.txt");
 			sessionLossLabel.setText(sessionResults.getSessionLoss());
+			reset.setDisable(false);
 			
 		} else if(player1.sumHand() <= 21 && dealer.sumHand() == player1.sumHand()) {
 			resultLabel.setText("You both have " + player1.sumHand() + " it's a push!");
@@ -245,6 +256,7 @@ public class AppController {
 			sessionResults.writeSessionResultsFile("Push: " + s);
 			sessionResults.getSessionResultsFromFile(TEXT_PATH + "session_result.txt");
 			sessionPushesLabel.setText(sessionResults.getSessionPushes());
+			reset.setDisable(false);
 			
 		}
 	}
@@ -288,6 +300,16 @@ public class AppController {
 		dealerHandValue.setText(String.valueOf(dealer.sumHand()));
 		playerHandValue.setText(String.valueOf(player1.sumHand()));
 		
+	}
+	
+	@FXML
+	public void resetScore() { //
+		sessionResults = new BlackjackResults();
+		sessionResults.addDate();
+		sessionResults.clearSessionResultsFile();
+		sessionLossLabel.setText("0");
+		sessionWinsLabel.setText("0");
+		sessionPushesLabel.setText("0");
 	}
 	
 	@FXML
